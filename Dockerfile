@@ -26,6 +26,12 @@ COPY . /app
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+# Install Node.js and build assets
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install && \
+    npm run build
+
 # Set permissions
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 
